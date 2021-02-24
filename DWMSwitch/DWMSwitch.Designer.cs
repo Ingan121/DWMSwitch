@@ -29,11 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DWMSwitch));
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.dWMSwitchV010ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.launchCMDAsDWMUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,7 +42,6 @@
             // notifyIcon
             // 
             this.notifyIcon.ContextMenuStrip = this.contextMenuStrip1;
-            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "DWMSwitch";
             this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
             // 
@@ -52,13 +49,12 @@
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dWMSwitchV010ToolStripMenuItem,
-            this.launchCMDAsDWMUserToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.checkForUpdatesToolStripMenuItem,
             this.gitHubToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(240, 158);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(240, 136);
             // 
             // dWMSwitchV010ToolStripMenuItem
             // 
@@ -66,13 +62,6 @@
             this.dWMSwitchV010ToolStripMenuItem.Name = "dWMSwitchV010ToolStripMenuItem";
             this.dWMSwitchV010ToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.dWMSwitchV010ToolStripMenuItem.Text = "DWMSwitch v0.1.0 by Ingan121";
-            // 
-            // launchCMDAsDWMUserToolStripMenuItem
-            // 
-            this.launchCMDAsDWMUserToolStripMenuItem.Name = "launchCMDAsDWMUserToolStripMenuItem";
-            this.launchCMDAsDWMUserToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
-            this.launchCMDAsDWMUserToolStripMenuItem.Text = "Launch CMD as DWM user";
-            this.launchCMDAsDWMUserToolStripMenuItem.Click += new System.EventHandler(this.launchCMDAsDWMUserToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -107,7 +96,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(321, 80);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DWMSwitch";
@@ -123,7 +111,6 @@
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem dWMSwitchV010ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem launchCMDAsDWMUserToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gitHubToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
