@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWMSwitch", "DWMSwitch\DWMS
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DWMLoaderStub", "DWMLoaderStub\DWMLoaderStub.vcxproj", "{76387BB1-E859-460B-B2B6-474C02D355BD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DWMServer", "DWMServer\DWMServer.vcxproj", "{4FD48391-0727-465D-ADB4-25926A8CD9F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,16 @@ Global
 		{76387BB1-E859-460B-B2B6-474C02D355BD}.Release|x64.Build.0 = Release|x64
 		{76387BB1-E859-460B-B2B6-474C02D355BD}.Release|x86.ActiveCfg = Release|Win32
 		{76387BB1-E859-460B-B2B6-474C02D355BD}.Release|x86.Build.0 = Release|Win32
+		{4FD48391-0727-465D-ADB4-25926A8CD9F9}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{4FD48391-0727-465D-ADB4-25926A8CD9F9}.Debug|x64.ActiveCfg = Debug|x64
+		{4FD48391-0727-465D-ADB4-25926A8CD9F9}.Debug|x64.Build.0 = Debug|x64
+		{4FD48391-0727-465D-ADB4-25926A8CD9F9}.Debug|x86.ActiveCfg = Debug|Win32
+		{4FD48391-0727-465D-ADB4-25926A8CD9F9}.Debug|x86.Build.0 = Debug|Win32
+		{4FD48391-0727-465D-ADB4-25926A8CD9F9}.Release|Any CPU.ActiveCfg = Release|Win32
+		{4FD48391-0727-465D-ADB4-25926A8CD9F9}.Release|x64.ActiveCfg = Release|x64
+		{4FD48391-0727-465D-ADB4-25926A8CD9F9}.Release|x64.Build.0 = Release|x64
+		{4FD48391-0727-465D-ADB4-25926A8CD9F9}.Release|x86.ActiveCfg = Release|Win32
+		{4FD48391-0727-465D-ADB4-25926A8CD9F9}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

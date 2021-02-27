@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{76387bb1-e859-460b-b2b6-474c02d355bd}</ProjectGuid>
-    <RootNamespace>DWMLoaderStub</RootNamespace>
+    <ProjectGuid>{4fd48391-0727-465d-adb4-25926a8cd9f9}</ProjectGuid>
+    <RootNamespace>DWMServer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -138,11 +138,11 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy C:\Users\User\Source\Repos\DWMSwitch\x64\Release\DWMLoaderStub.exe C:\Windows\System32\dwm.exe /y &amp;&amp; copy C:\Users\User\Source\Repos\DWMSwitch\x64\Release\DWMLoaderStub.exe C:\Windows\System32\dwm.loader.exe /y</Command>
+      <Command>copy C:\Users\User\Source\Repos\DWMSwitch\x64\Release\DWMServer.exe "C:\Program Files\Ingan121\DWMSwitch"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DWMLoaderStub.cpp" />
+    <ClCompile Include="DWMServer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
