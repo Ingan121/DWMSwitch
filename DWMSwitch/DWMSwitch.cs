@@ -58,7 +58,7 @@ namespace DWMSwitch
 
             EnableWow64FSRedirection(false);
 
-            Process[] processes = Process.GetProcessesByName("dwm.orig");
+            Process[] processes = Process.GetProcessesByName("dwm");
             if (processes.Length > 0)
             {
                 notifyIcon.Icon = Properties.Resources.DWMOn;
@@ -78,7 +78,7 @@ namespace DWMSwitch
             {
                 try
                 {
-                    Process[] processes = Process.GetProcessesByName("dwm.orig");
+                    Process[] processes = Process.GetProcessesByName("dwm");
                     if (processes.Length > 0)
                     {
                         processes[0].Kill();

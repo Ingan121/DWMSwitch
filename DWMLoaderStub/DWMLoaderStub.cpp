@@ -197,18 +197,37 @@ int main(int argc, char** argv)
                     input[3] = 'r';
                     input[4] = 't';
                     input[5] = ' ';
-                    input[6] = 'd';
-                    input[7] = 'w';
-                    input[8] = 'm';
-                    input[9] = '.';
-                    input[10] = 'o';
-                    input[11] = 'r';
-                    input[12] = 'i';
-                    input[13] = 'g';
-                    input[14] = '.';
-                    input[15] = 'e';
-                    input[16] = 'x';
-                    input[17] = 'e';
+                    input[6] = 'C';
+                    input[7] = ':';
+                    input[8] = '\\';
+                    input[9] = 'W';
+                    input[10] = 'i';
+                    input[11] = 'n';
+                    input[12] = 'd';
+                    input[13] = 'o';
+                    input[14] = 'w';
+                    input[15] = 's';
+                    input[16] = '\\';
+                    input[17] = 'S';
+                    input[18] = 'y';
+                    input[19] = 's';
+                    input[20] = 't';
+                    input[21] = 'e';
+                    input[22] = 'm';
+                    input[23] = '3';
+                    input[24] = '2';
+                    input[25] = '\\';
+                    input[26] = 'D';
+                    input[27] = 'W';
+                    input[28] = 'M';
+                    input[29] = '\\';
+                    input[30] = 'd';
+                    input[31] = 'w';
+                    input[32] = 'm';
+                    input[33] = '.';
+                    input[34] = 'e';
+                    input[35] = 'x';
+                    input[36] = 'e';
                     // 입력받은 길이를 받는다.	
                     int size = strlen(input);
                     // 개행을 넣는다.	
@@ -238,7 +257,7 @@ int main(int argc, char** argv)
 
         if (strcmp(argv[1], "stop") == 0)
         {
-            system("taskkill -im dwm.orig.exe -f");
+            system("taskkill -im dwm.exe -f");
             return 0;
         }
 
@@ -336,8 +355,8 @@ int main(int argc, char** argv)
     }
 
     // Start original DWM and DWMServer, then exit
-    printf("Starting dwm.orig.exe...\n");
-    system("start dwm.orig.exe");
+    printf("Starting DWM...\n");
+    system("start C:\\Windows\\System32\\DWM\\dwm.exe");
 
     printf("Starting DWMServer...\n");
     system("start \"\" \"C:\\Program Files\\Ingan121\\DWMSwitch\\DWMServer.exe\"");
