@@ -452,7 +452,7 @@ int main(int argc, char** argv)
         }
     }
 
-    printf("DWMSwitch DWMCtl 1.0 by Ingan121\n\nUsage: dwmctl [command]\n\nCommands:\nstart: Start DWM\nstop: Stop DWM\ncmd: Start command prompt as DWM user.\nshell: Open DWM-user shell in this console window.\n--version: Print version and exit.");
+    printf("DWMSwitch DWMCtl 0.1.0 by Ingan121\n\nUsage: dwmctl [command]\n\nCommands:\n    start: Start DWM\n    stop: Stop DWM\n    cmd: Start command prompt as DWM user.\n    shell: Open DWM-user shell in this console window.\n    --help: Print this message and exit.\n    --version: Print version and exit.\n");
 
     return 0;
 }
