@@ -25,7 +25,9 @@ namespace DWMSwitch
         public string[] args = Environment.GetCommandLineArgs();
         //public RegistryKey dsConfReg = Registry.LocalMachine.CreateSubKey("SOFTWARE\\Ingan121\\DWMSwitch", RegistryKeyPermissionCheck.ReadWriteSubTree);
         public Version ver = new Version(FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion);
-        public bool donthide = false;
+        public bool allowShowDisplay = false;
+        public bool dontHide = false;
+
 
         #endregion
 
@@ -44,17 +46,6 @@ namespace DWMSwitch
             {
                 updateCheck();
             }
-        }
-
-        #endregion
-
-        private void DWMSwitch_Shown(object sender, EventArgs e)
-        {
-            // Wait until Explorer starts to ensure that the tray icon appears
-            while (Process.GetProcessesByName("explorer").Length == 0)
-            {
-                Thread.Sleep(100);
-            }
 
             EnableWow64FSRedirection(false);
 
@@ -67,10 +58,8 @@ namespace DWMSwitch
             {
                 notifyIcon.Icon = Properties.Resources.DWMOff;
             }
-
-            notifyIcon.Visible = true;
-            Visible = false;
         }
+        #endregion
 
         private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
@@ -81,12 +70,18 @@ namespace DWMSwitch
                     Process[] processes = Process.GetProcessesByName("dwm");
                     if (processes.Length > 0)
                     {
-                        processes[0].Kill();
+                        //sendMsgToServer("taskkill -im dwm.exe -f");
+                        ProcessStartInfo info = new ProcessStartInfo("C:\\Windows\\dwmctl.exe");
+                        info.Arguments = "stop";
+                        Process.Start(info);
                         notifyIcon.Icon = Properties.Resources.DWMOff;
                     }
                     else
                     {
-                        Process.Start("dwm.exe start");
+                        //sendMsgToServer("start C:\\Windows\\System32\\DWM\\dwm.exe");
+                        ProcessStartInfo info = new ProcessStartInfo("C:\\Windows\\dwmctl.exe");
+                        info.Arguments = "start";
+                        Process.Start(info);
                         notifyIcon.Icon = Properties.Resources.DWMOn;
                     }
                 }
@@ -102,10 +97,7 @@ namespace DWMSwitch
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(Resources.Strings.ExitConfirmMessage, Resources.Strings.AppName, MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
+            Application.Exit();
         }
 
         private void gitHubToolStripMenuItem_Click(object sender, EventArgs e) => Process.Start("https://github.com/Ingan121/DWMSwitch/releases");
@@ -169,6 +161,60 @@ namespace DWMSwitch
         {
             MessageBox.Show("Work in Progress");
             //new SockTest().Show();
+        }
+
+        private void sendMsgToServer(string msg)
+        {
+            // https://nowonbun.tistory.com/737
+            // 개행 코드
+            char CR = (char)0x0D;
+            char LF = (char)0x0A;
+            // 수신 버퍼
+            StringBuilder sb = new StringBuilder();
+            // 소켓을 연다.
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP))
+            {
+                // 로컬의 9090포트로 접속한다.
+                socket.Connect(IPAddress.Parse("127.0.0.1"), 35489);
+                // 수신을 위한 쓰레드
+                ThreadPool.QueueUserWorkItem((_) =>
+                {
+                    while (true)
+                    {
+                        // 서버로 오는 메시지를 받는다.
+                        byte[] ret = new byte[2];
+                        socket.Receive(ret, 2, SocketFlags.None);
+                        // 메시지를 unicode로 변환해서 버퍼에 넣는다.
+                        sb.Append(Encoding.Unicode.GetString(ret, 0, 2));
+                        // 개행 + \n이면 콘솔 출력한다.
+                        if (sb.Length >= 4 && sb[sb.Length - 4] == CR && sb[sb.Length - 3] == LF && sb[sb.Length - 2] == '>' && sb[sb.Length - 1] == '\0')
+                        {
+                            // 버퍼의 메시지를 로그에 출력
+                            log(sb.ToString());
+                            // 버퍼를 비운다.
+                            sb.Clear();
+                        }
+                    }
+                });
+                // 송신을 위한 입력대기
+                byte[] data = Encoding.Unicode.GetBytes(msg + "\r\n");
+                // 송신.
+                socket.Send(data, data.Length, SocketFlags.None);
+            }
+        }
+
+        protected override void SetVisibleCore(bool value)
+        {
+            if (args.Any(x => x.Contains("showui")))
+            {
+                allowShowDisplay = true;
+            }
+            if (args.Any(x => x.Contains("dontHide")))
+            {
+                dontHide = true;
+            }
+
+            base.SetVisibleCore(allowShowDisplay ? value : allowShowDisplay);
         }
     }
 }

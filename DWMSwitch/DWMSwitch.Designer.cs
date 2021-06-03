@@ -43,6 +43,7 @@
             // 
             this.notifyIcon.ContextMenuStrip = this.contextMenuStrip1;
             this.notifyIcon.Text = "DWMSwitch";
+            this.notifyIcon.Visible = true;
             this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
             // 
             // contextMenuStrip1
@@ -54,40 +55,40 @@
             this.gitHubToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(240, 136);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(245, 114);
             // 
             // dWMSwitchV010ToolStripMenuItem
             // 
             this.dWMSwitchV010ToolStripMenuItem.Enabled = false;
             this.dWMSwitchV010ToolStripMenuItem.Name = "dWMSwitchV010ToolStripMenuItem";
-            this.dWMSwitchV010ToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.dWMSwitchV010ToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.dWMSwitchV010ToolStripMenuItem.Text = "DWMSwitch v0.1.0 by Ingan121";
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // checkForUpdatesToolStripMenuItem
             // 
             this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.checkForUpdatesToolStripMenuItem.Text = "Check for updates";
             this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
             // 
             // gitHubToolStripMenuItem
             // 
             this.gitHubToolStripMenuItem.Name = "gitHubToolStripMenuItem";
-            this.gitHubToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.gitHubToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.gitHubToolStripMenuItem.Text = "GitHub";
             this.gitHubToolStripMenuItem.Click += new System.EventHandler(this.gitHubToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -100,7 +101,6 @@
             this.MinimizeBox = false;
             this.Name = "DWMSwitch";
             this.Text = "Waiting until Explorer starts...";
-            this.Shown += new System.EventHandler(this.DWMSwitch_Shown);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 

@@ -6,7 +6,6 @@
 // inet_ntoa가 deprecated가 되었는데.. 사용하려면 아래 설정을 해야 한다.	
 #pragma warning(disable:4996)	
 #include <stdio.h>	
-#include <iostream>	
 #include <vector>	
 #include <thread>	
 // 소켓을 사용하기 위한 라이브러리	
@@ -74,8 +73,8 @@ int main(int argc, char** argv)
             addr.sin_family = AF_INET;
             // 127.0.0.1(localhost)로 접속하기	
             addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-            // 포트 9090으로 접속	
-            addr.sin_port = htons(9090);
+            // 포트 35489으로 접속	
+            addr.sin_port = htons(35489);
             // 접속	
             if (connect(sock, (SOCKADDR*)&addr, sizeof(SOCKADDR_IN)) == SOCKET_ERROR)
             {
@@ -108,8 +107,8 @@ int main(int argc, char** argv)
                     buffer.clear();
                     // 콘솔로 부터 입력을 받는다.	
                     char input[BUFFERSIZE];
-                    // 유저로 부터 입력 받기	
-                    cin >> input;
+                    // 유저로 부터 입력 받기
+                    cin.getline(input, BUFFERSIZE, '\n');
                     // 입력받은 길이를 받는다.	
                     int size = strlen(input);
                     // 개행을 넣는다.	
@@ -156,8 +155,8 @@ int main(int argc, char** argv)
             addr.sin_family = AF_INET;
             // 127.0.0.1(localhost)로 접속하기	
             addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-            // 포트 9090으로 접속	
-            addr.sin_port = htons(9090);
+            // 포트 35489으로 접속	
+            addr.sin_port = htons(35489);
             // 접속	
             if (connect(sock, (SOCKADDR*)&addr, sizeof(SOCKADDR_IN)) == SOCKET_ERROR)
             {
@@ -169,7 +168,7 @@ int main(int argc, char** argv)
             vector<wchar_t> buffer;
             // 수신 데이터	
             wchar_t x;
-            for (int i = 0; i <= 18; i++)
+            for (int i = 0; i <= 40; i++) // 40: "DWMSwitch DWMServer 0.1.0 by Ingan121\r\n>\0"
             {
                 // 데이터를 받는다. 에러가 발생하면 멈춘다.	
                 // char* 형식으로 받기 때문에 타입 캐스팅을 한다.	
@@ -240,11 +239,6 @@ int main(int argc, char** argv)
                     // 서버로 보내기	
                     // send함수가 char* 형식으로 보낼 수 있기 때문에 타입 캐스팅을 한다.	
                     send(sock, (char*)buffer, wcslen(buffer) * 2, 0);
-                    // 메시지가 exit라면 종료	
-                    if (*input == 'e' && *(input + 1) == 'x' && *(input + 2) == 'i' && *(input + 3) == 't')
-                    {
-                        break;
-                    }
                     continue;
                 }
             }
@@ -274,8 +268,8 @@ int main(int argc, char** argv)
             addr.sin_family = AF_INET;
             // 127.0.0.1(localhost)로 접속하기	
             addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-            // 포트 9090으로 접속	
-            addr.sin_port = htons(9090);
+            // 포트 35489으로 접속	
+            addr.sin_port = htons(35489);
             // 접속	
             if (connect(sock, (SOCKADDR*)&addr, sizeof(SOCKADDR_IN)) == SOCKET_ERROR)
             {
@@ -287,7 +281,7 @@ int main(int argc, char** argv)
             vector<wchar_t> buffer;
             // 수신 데이터	
             wchar_t x;
-            for (int i = 0; i <= 18; i++)
+            for (int i = 0; i <= 40; i++)
             {
                 // 데이터를 받는다. 에러가 발생하면 멈춘다.	
                 // char* 형식으로 받기 때문에 타입 캐스팅을 한다.	
@@ -344,11 +338,6 @@ int main(int argc, char** argv)
                     // 서버로 보내기	
                     // send함수가 char* 형식으로 보낼 수 있기 때문에 타입 캐스팅을 한다.	
                     send(sock, (char*)buffer, wcslen(buffer) * 2, 0);
-                    // 메시지가 exit라면 종료	
-                    if (*input == 'e' && *(input + 1) == 'x' && *(input + 2) == 'i' && *(input + 3) == 't')
-                    {
-                        break;
-                    }
                     continue;
                 }
             }
@@ -391,7 +380,7 @@ int main(int argc, char** argv)
             vector<wchar_t> buffer;
             // 수신 데이터	
             wchar_t x;
-            for (int i = 0; i <= 18; i++)
+            for (int i = 0; i <= 40; i++)
             {
                 // 데이터를 받는다. 에러가 발생하면 멈춘다.	
                 // char* 형식으로 받기 때문에 타입 캐스팅을 한다.	
@@ -430,11 +419,6 @@ int main(int argc, char** argv)
                     // 서버로 보내기	
                     // send함수가 char* 형식으로 보낼 수 있기 때문에 타입 캐스팅을 한다.	
                     send(sock, (char*)buffer, wcslen(buffer) * 2, 0);
-                    // 메시지가 exit라면 종료	
-                    if (*input == 'e' && *(input + 1) == 'x' && *(input + 2) == 'i' && *(input + 3) == 't')
-                    {
-                        break;
-                    }
                     continue;
                 }
             }

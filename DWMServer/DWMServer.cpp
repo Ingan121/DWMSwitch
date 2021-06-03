@@ -1,12 +1,15 @@
-﻿#include <iostream>
+﻿#include <cstdio>
+#include <iostream>
+#include <memory>
+#include <stdexcept>
 #include <string>
+#include <array>
 
 // 소켓을 사용하기 위해서 라이브러리 참조해야 한다.	
 #pragma comment(lib, "ws2_32")	
 // inet_ntoa가 deprecated가 되었는데.. 사용하려면 아래 설정을 해야 한다.	
 #pragma warning(disable:4996)	
 #include <stdio.h>	
-#include <iostream>	
 #include <vector>	
 #include <thread>	
 // 소켓을 사용하기 위한 라이브러리	
@@ -16,6 +19,8 @@
 using namespace std;
 
 /* sockserver */
+bool exitServer = false;
+
 // 수신 했을 때, 콘솔 출력 및 echo 데이터 만드는 함수	
 // 리턴 타입을 char*에서 wchar_t*로 변경하고 파라미터도 vector<char>에서 vector<wchar_t>로 변경했다.	
 wchar_t* print(vector<wchar_t>* str)
@@ -58,22 +63,48 @@ wchar_t* print(vector<wchar_t>* str)
             *(ret + p + 7) = out[i];
         }
         out[size] = '\0';
-        // 콘솔 메시지 콘솔 출력.	
+        // 콘솔 메시지 콘솔 출력.
         wprintf(L"%s", out);
-        _wsystem(out);
+
+        if (size != 0) {
+            if (out[0] == '/') {
+                if (wcsncmp(out, L"/showconsole", 12) == 0) ::ShowWindow(::GetConsoleWindow(), SW_SHOW);
+                else if (wcsncmp(out, L"/hideconsole", 12) == 0) ::ShowWindow(::GetConsoleWindow(), SW_HIDE);
+                else if(wcsncmp(out, L"/exitserver", 11) == 0) exitServer = true;
+            }
+            else {
+                _wsystem(out);
+            }
+        }
     }
     cout << endl;
     // 에코 메시지는 끝에 개행 + ">"를 넣는다.	
     memcpy(ret + p + 7, L"\n>\0", 6);
     return ret;
 }
+
+// https://stackoverflow.com/questions/478898/how-do-i-execute-a-command-and-get-the-output-of-the-command-within-c-using-po
+std::wstring exec(const char* cmd) {
+    std::array<char, 128> buffer;
+    std::string result;
+    std::unique_ptr<FILE, decltype(&_pclose)> pipe(_popen(cmd, "r"), _pclose);
+    if (!pipe) {
+        throw std::runtime_error("_popen() failed!");
+    }
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+        result += buffer.data();
+    }
+    return std::wstring(result.begin(), result.end());
+}
+
 // 접속되는 client별 쓰레드	
 void client(SOCKET clientSock, SOCKADDR_IN clientAddr, vector<thread*>* clientlist)
 {
     // 접속 정보를 콘솔에 출력한다.	
     cout << "Client connected IP address = " << inet_ntoa(clientAddr.sin_addr) << ":" << ntohs(clientAddr.sin_port) << endl;
     // client로 메시지를 보낸다.(wchar_t 타입으로 설정해서 보낸다.)	
-    const wchar_t* message = L"Welcome server!\r\n>\0";
+    //std::wstring username = exec("whoami");
+    const wchar_t* message = (L"DWMSwitch DWMServer 0.1.0 by Ingan121\r\n>\0");//, running as " + username + L"\r\n>\0").c_str();
     // send함수가 char* 형식으로 보낼 수 있기 때문에 타입 캐스팅을 한다.	
     // 사이즈는 문자열 길이 * 2 그리고 마지막 \0를 보내기 위한 +2를 추가한다.	
     send(clientSock, (char*)message, wcslen(message) * 2 + 2, 0);
@@ -81,12 +112,12 @@ void client(SOCKET clientSock, SOCKADDR_IN clientAddr, vector<thread*>* clientli
     vector<wchar_t> buffer;
     // 수신 단위가 char가 아닌 wchar_t이다.	
     wchar_t x;
-    while (1)
+    while (!exitServer)
     {
         // 수신을 받을 때도 char* 형식으로 받기 때문에 타입 캐스팅을 한다.	
         if (recv(clientSock, (char*)&x, sizeof(x), 0) == SOCKET_ERROR)
         {
-            cout << "error" << endl;
+            cout << "error - 1" << endl;
             break;
         }
         // 만약 buffer의 끝자리가 개행일 경우	
@@ -162,20 +193,20 @@ int main(int argc, char** argv)
         // 서버이기 때문에 local 설정한다.	
         // Any인 경우는 호스트를 127.0.0.1로 잡아도 되고 localhost로 잡아도 되고 양쪽 다 허용하게 할 수 있따. 그것이 INADDR_ANY이다.	
         addr.sin_addr.s_addr = htonl(INADDR_ANY);
-        // 서버 포트 설정...저는 9090으로 설정함.	
-        addr.sin_port = htons(9090);
+        // 서버 포트 설정	
+        addr.sin_port = htons(35489);
         // 설정된 소켓 정보를 소켓에 바인딩한다.	
         if (bind(serverSock, (SOCKADDR*)&addr, sizeof(SOCKADDR_IN)) == SOCKET_ERROR)
         {
             // 에러 콘솔 출력	
-            cout << "error" << endl;
+            cout << "error - 2" << endl;
             return 1;
         }
         // 소켓을 대기 상태로 기다린다.	
         if (listen(serverSock, SOMAXCONN) == SOCKET_ERROR)
         {
             // 에러 콘솔 출력	
-            cout << "error" << endl;
+            cout << "error - 3" << endl;
             return 1;
         }
         // 서버를 시작한다.	
@@ -189,6 +220,7 @@ int main(int argc, char** argv)
             SOCKADDR_IN clientAddr;
             // client가 접속을 하면 SOCKET을 받는다.	
             SOCKET clientSock = accept(serverSock, (SOCKADDR*)&clientAddr, &len);
+            if (exitServer) break;
             // 쓰레드를 실행하고 쓰레드 리스트에 넣는다.	
             clientlist.push_back(new thread(client, clientSock, clientAddr, &clientlist));
         }
@@ -200,6 +232,8 @@ int main(int argc, char** argv)
                 (*ptr)->join();
             }
         }
+
+        cout << "Exiting...";
         // 서버 소켓 종료	
         closesocket(serverSock);
         // 소켓 종료	
