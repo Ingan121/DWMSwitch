@@ -1,6 +1,11 @@
 @echo off
-cd /d "%~dp0Files"
 title DWMSwitch Installer
+if not exist "%~dp0Files" (
+    echo Please uncompress the zip completely then try again.
+    pause
+    exit /b
+)
+cd /d "%~dp0Files"
 
 :: BatchGotAdmin
 :-------------------------------------
