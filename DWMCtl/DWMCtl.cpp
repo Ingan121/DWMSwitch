@@ -168,7 +168,7 @@ int main(int argc, char** argv)
             vector<wchar_t> buffer;
             // 수신 데이터	
             wchar_t x;
-            for (int i = 0; i <= 40; i++) // 40: "DWMSwitch DWMServer 0.1.0 by Ingan121\r\n>\0"
+            for (int i = 0; i <= 40; i++) // 40: "DWMSwitch DWMServer 0.1.1 by Ingan121\r\n>\0"
             {
                 // 데이터를 받는다. 에러가 발생하면 멈춘다.	
                 // char* 형식으로 받기 때문에 타입 캐스팅을 한다.	
@@ -367,8 +367,8 @@ int main(int argc, char** argv)
             addr.sin_family = AF_INET;
             // 127.0.0.1(localhost)로 접속하기	
             addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-            // 포트 9090으로 접속	
-            addr.sin_port = htons(9090);
+            // 포트 35489으로 접속	
+            addr.sin_port = htons(35489);
             // 접속	
             if (connect(sock, (SOCKADDR*)&addr, sizeof(SOCKADDR_IN)) == SOCKET_ERROR)
             {
@@ -431,12 +431,12 @@ int main(int argc, char** argv)
 
         if (strcmp(argv[1], "--version") == 0)
         {
-            printf("0.1.0");
+            printf("0.1.1");
             return 0;
         }
     }
 
-    printf("DWMSwitch DWMCtl 0.1.0 by Ingan121\n\nUsage: dwmctl [command]\n\nCommands:\n    start: Start DWM\n    stop: Stop DWM\n    cmd: Start command prompt as DWM user.\n    shell: Open DWM-user shell in this console window.\n    --help: Print this message and exit.\n    --version: Print version and exit.\n");
+    printf("DWMSwitch DWMCtl 0.1.1 by Ingan121\n\nUsage: dwmctl [command]\n\nCommands:\n    start: Start DWM\n    stop: Stop DWM\n    cmd: Start command prompt as DWM user.\n    shell: Open DWM-user shell in this console window.\n    --help: Print this message and exit.\n    --version: Print version and exit.\n");
 
     return 0;
 }

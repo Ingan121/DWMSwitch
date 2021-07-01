@@ -104,7 +104,7 @@ void client(SOCKET clientSock, SOCKADDR_IN clientAddr, vector<thread*>* clientli
     cout << "Client connected IP address = " << inet_ntoa(clientAddr.sin_addr) << ":" << ntohs(clientAddr.sin_port) << endl;
     // client로 메시지를 보낸다.(wchar_t 타입으로 설정해서 보낸다.)	
     //std::wstring username = exec("whoami");
-    const wchar_t* message = (L"DWMSwitch DWMServer 0.1.0 by Ingan121\r\n>\0");//, running as " + username + L"\r\n>\0").c_str();
+    const wchar_t* message = (L"DWMSwitch DWMServer 0.1.1 by Ingan121\r\n>\0");//, running as " + username + L"\r\n>\0").c_str();
     // send함수가 char* 형식으로 보낼 수 있기 때문에 타입 캐스팅을 한다.	
     // 사이즈는 문자열 길이 * 2 그리고 마지막 \0를 보내기 위한 +2를 추가한다.	
     send(clientSock, (char*)message, wcslen(message) * 2 + 2, 0);

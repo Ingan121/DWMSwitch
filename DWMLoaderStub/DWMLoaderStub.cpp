@@ -8,4 +8,6 @@ int main()
     
     system("start \"\" \"C:\\Program Files\\Ingan121\\DWMSwitch\\DWMServer.exe\"");
     printf("Started DWMServer\n");
+
+    return 0;
 }

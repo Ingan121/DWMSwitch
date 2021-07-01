@@ -1,6 +1,14 @@
 @echo off
-cd /d "%~dp0Files"
 title DWMSwitch Uninstaller
+
+REM Copy itself to temp directory first to keep the uninstaller running even after the DWMSwitch directory is deleted.
+if "%~dp0" == "C:\Program Files\Ingan121\DWMSwitch\" (
+    copy %0 %tmp% >nul
+    %tmp%\%~nx0
+    exit /b
+) else (goto NotInDSwDir)
+
+:NotInDSwDir
 
 :: BatchGotAdmin
 :-------------------------------------
@@ -28,7 +36,7 @@ if '%errorlevel%' NEQ '0' (
 
 :gotAdmin
     pushd "%cd%"
-    cd /d "%~dp0Files"
+    cd /d "%~dp0"
 :--------------------------------------
 
 choice /m "Are you sure you want to uninstall DWMSwitch?"
@@ -68,6 +76,14 @@ if not errorlevel 1 (echo Success) else echo Not registered for autostart
 
 echo.
 echo Done!
-echo Please sign out and sign in again (or reboot) to complete the uninstallation.
-echo Press any key to close this window.
-timeout 20 >nul
+echo Please sign out and sign in again (or reboot) to complete the installation.
+
+echo.
+choice /m "Sign out now? "
+if %errorlevel% == 1 (
+    logoff
+    exit
+) else (
+    echo Press any key to close this window.
+    timeout 20 >nul
+)

@@ -36,7 +36,7 @@ if '%errorlevel%' NEQ '0' (
     cd /d "%~dp0Files"
 :--------------------------------------
 
-echo DWMSwitch 0.1.0 by Ingan121
+echo DWMSwitch 0.1.1 by Ingan121
 echo Licensed under the MIT License
 echo https://github.com/Ingan121/DWMSwitch
 echo.
@@ -86,6 +86,9 @@ if not errorlevel 1 (echo   dwmctl.exe: Success) else echo   DWMCtl.exe: Fail
 copy DWMLoaderStub.exe C:\Windows\System32\dwm.exe /y >nul
 if not errorlevel 1 (echo   DWMLoaderStub: Success) else echo   DWMLoaderStub: Fail
 
+copy Uninstall.bat "C:\Program Files\Ingan121\DWMSwitch" /y >nul
+if not errorlevel 1 (echo   Uninstaller: Success) else echo   Uninstaller: Fail
+
 echo.
 choice /m "Do you want to automatically start DWMSwitch GUI on startup?"
 if %errorlevel% == 1 (
@@ -97,5 +100,14 @@ if %errorlevel% == 1 (
 echo.
 echo Done!
 echo Please sign out and sign in again (or reboot) to complete the installation.
-echo Press any key to close this window.
-timeout 20 >nul
+echo Run C:\Program Files\Ingan121\DWMSwitch\Uninstall.bat to uninstall.
+
+echo.
+choice /m "Sign out now?"
+if %errorlevel% == 1 (
+    logoff
+    exit
+) else (
+    echo Press any key to close this window.
+    timeout 20 >nul
+)

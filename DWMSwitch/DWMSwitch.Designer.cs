@@ -62,7 +62,7 @@
             this.dWMSwitchV010ToolStripMenuItem.Enabled = false;
             this.dWMSwitchV010ToolStripMenuItem.Name = "dWMSwitchV010ToolStripMenuItem";
             this.dWMSwitchV010ToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
-            this.dWMSwitchV010ToolStripMenuItem.Text = "DWMSwitch v0.1.0 by Ingan121";
+            this.dWMSwitchV010ToolStripMenuItem.Text = "DWMSwitch v0.1.1 by Ingan121";
             // 
             // settingsToolStripMenuItem
             // 
